@@ -1,0 +1,50 @@
+<ng-container *ngIf="questions">
+    <div class="row">
+        <div class="col-xs-1 mb-20">
+            <strong>Sort by:</strong>
+        </div>
+
+        <div class="col-xs-11 mb-20">
+            <div class="btn-group" role="group">
+                <button
+                    [disabled]="option.isSorted"
+                    (click)="sort(option)"
+                    *ngFor="let option of sortOptions"
+                    type="button"
+                    class="btn btn-default">{{ option.title }}</button>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <table class="table table-bordered" *ngIf="questions.length !== 0; else noQuestionsResults">
+                <thead>
+                    <tr>
+                        <th>Author</th>
+                        <th>Theme</th>
+                        <th>Answers</th>
+                        <th>Tags</th>
+                    </tr>
+                </thead>
+            
+                <tbody>
+                    <tr *ngFor="let question of questions; trackBy: id">
+                        <td (click)="onAuthorClick.emit(question.author)">{{ question.author.name }}</td>
+                        <td (click)="onTitleClick.emit(question.id)">{{ question.title }}</td>
+                        <td (click)="onAnswerCountClick.emit(question.id)">{{ question.answerCount }}</td>
+                        <td *ngIf="question.tags && question.tags.length">
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-xs mr-5 mb-5"
+                                *ngFor="let tag of question.tags"
+                                (click)="onTagClick.emit(tag)">{{ tag }}</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #noQuestionsResults>
+    <ng-content select="[noContent]"></ng-content>
+</ng-template>

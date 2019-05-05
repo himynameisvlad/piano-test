@@ -1,0 +1,33 @@
+<app-loader
+    loadingText="Loading qusetions..."
+    *ngIf="isLoading; else results"></app-loader>
+
+<ng-template #results>
+    <app-panel>
+        <app-table
+            [questions]="questions"
+            (onAuthorClick)="showAuthorsQuestions($event)"
+            (onTagClick)="showQuestionsByTag($event)"
+            (onTitleClick)="showQuestionInfo($event)"
+            (onAnswerCountClick)="showQuestionInfo($event)"
+            leftPane>
+            <ng-container noContent>
+                <p class="text-center">There are no questions.</p>
+
+                <div class="text-center">
+                    <button type="button" class="btn btn-link" (click)="goToSearch()">
+                        Back to Search
+                    </button>
+                </div>
+            </ng-container>
+        </app-table>
+    
+        <div rightPane>
+            <app-table *ngIf="relatedQuestions.length" [questions]="relatedQuestions"></app-table>
+    
+            <button type="button" class="btn btn-link" (click)="showResults()">
+                Back to Results
+            </button>
+        </div>
+    </app-panel>
+</ng-template>

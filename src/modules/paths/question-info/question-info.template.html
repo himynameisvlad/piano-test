@@ -1,0 +1,23 @@
+<app-loader
+    loadingText="Loading answers..."
+    *ngIf="isLoading; else answersList"></app-loader>
+
+<ng-template #answersList>
+    <ng-container *ngIf="answers">
+        <ul class="list-group" *ngIf="answers.length !== 0; else noAnswersResults">
+            <li
+                *ngFor="let answer of answers; trackBy: answer?.id"
+                class="list-group-item">
+                <h4 class="mb-4">Author: <strong>{{ answer.author.name }}</strong></h4>
+        
+                <div [innerHTML]="answer.body | safeHtml"> </div>
+            </li>
+        </ul>
+    </ng-container>
+    
+    <ng-template #noAnswersResults>
+        <p class="text-center">There are no anwsers for this question.</p>
+    </ng-template>
+</ng-template>
+
+

@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="form-group col-xs-9 mb-0">
+                    <input
+                        [formControl]="searchControl"
+                        type="text"
+                        class="form-control"
+                        placeholder="Search stackoverflow...">
+                </div>
+            
+                <div class="col-xs-3">
+                    <button
+                        (click)="goToResults()"
+                        [disabled]="searchControl.invalid"
+                        class="btn btn-primary btn-block">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
